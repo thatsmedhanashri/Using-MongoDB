@@ -1,0 +1,181 @@
+natours-test> db.tours.updateOne({ name: "The Forest Hiker" }, { $set: { price: 900 }})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+natours-test> db.tours.find()
+[
+  {
+    _id: ObjectId('667fc289dae9886fa5cc8988'),
+    name: 'The Forest Hiker',
+    price: 900,
+    rating: 4.7
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8988'),
+    name: 'The Sea Explorer',
+    price: 497,
+    rating: 4.8
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8989'),
+    name: 'The Snow Adventurer',
+    price: 997,
+    rating: 4.9,
+    difficulty: 'easy'
+  }
+]
+natours-test> db.tours.updateMany({ price: {gt: 500}, rating: {$gt: 4.7} }, {$set: { premium: true } } )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+natours-test> db.tours.find()
+[
+  {
+    _id: ObjectId('667fc289dae9886fa5cc8988'),
+    name: 'The Forest Hiker',
+    price: 900,
+    rating: 4.7
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8988'),
+    name: 'The Sea Explorer',
+    price: 497,
+    rating: 4.8
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8989'),
+    name: 'The Snow Adventurer',
+    price: 997,
+    rating: 4.9,
+    difficulty: 'easy'
+  }
+]
+natours-test> db.tours.updateMany({ price: {$gt: 500}, rating: {$gt: 4.7} }, {$set: { premium: true } } )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+natours-test> db.tours.find()
+[
+  {
+    _id: ObjectId('667fc289dae9886fa5cc8988'),
+    name: 'The Forest Hiker',
+    price: 900,
+    rating: 4.7
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8988'),
+    name: 'The Sea Explorer',
+    price: 497,
+    rating: 4.8
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8989'),
+    name: 'The Snow Adventurer',
+    price: 997,
+    rating: 4.9,
+    difficulty: 'easy',
+    premium: true
+  }
+]
+natours-test> db.tours.replaceOne( { name: "The Forest Hiker" }, { name: "The Forest Hiker!}   )
+"Uncaught:
+SyntaxError: Unterminated string constant. (1:59)
+
+> 1 | db.tours.replaceOne( { name: "The Forest Hiker" }, { name: "The Forest Hiker!}   )
+    |                                                            ^
+  2 |
+
+natours-test> db.tours.replaceOne( { name: "The Forest Hiker" }, { name: "The Forest Hiker!", price: 450, rating: 3.5 } )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+natours-test> db.tours.find()
+[
+  {
+    _id: ObjectId('667fc289dae9886fa5cc8988'),
+    name: 'The Forest Hiker!',
+    price: 450,
+    rating: 3.5
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8988'),
+    name: 'The Sea Explorer',
+    price: 497,
+    rating: 4.8
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8989'),
+    name: 'The Snow Adventurer',
+    price: 997,
+    rating: 4.9,
+    difficulty: 'easy',
+    premium: true
+  }
+]
+natours-test> db.tours.replaceOne( { name: "The Forest Hiker" }, { name: "The Forest Hiker!", price: 450} )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+natours-test> db.tours.find()
+[
+  {
+    _id: ObjectId('667fc289dae9886fa5cc8988'),
+    name: 'The Forest Hiker!',
+    price: 450,
+    rating: 3.5
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8988'),
+    name: 'The Sea Explorer',
+    price: 497,
+    rating: 4.8
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8989'),
+    name: 'The Snow Adventurer',
+    price: 997,
+    rating: 4.9,
+    difficulty: 'easy',
+    premium: true
+  }
+]
+natours-test> db.tours.deleteOne( { rating: {$lt: 3.9} } )
+{ acknowledged: true, deletedCount: 1 }
+natours-test> db.tours.find()
+[
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8988'),
+    name: 'The Sea Explorer',
+    price: 497,
+    rating: 4.8
+  },
+  {
+    _id: ObjectId('667fc6bb1268fb4084cc8989'),
+    name: 'The Snow Adventurer',
+    price: 997,
+    rating: 4.9,
+    difficulty: 'easy',
+    premium: true
+  }
+]
+natours-test>   
